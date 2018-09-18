@@ -37,7 +37,6 @@ public class Card {
 	}	
 	public int getCardValue()
 	{
-		int value = determineCardValue(this.name);
 		return value;
 	}
 	
@@ -54,6 +53,12 @@ public class Card {
 	public String getSuites()
 	{
 		return suite;
+	}
+
+	public void setAce21(Card card1)
+	{
+		card1.Ace = false;
+		card1.value = 1;
 	}
 	
 	public void printCard()

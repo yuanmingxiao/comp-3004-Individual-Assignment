@@ -7,15 +7,20 @@ import java.util.Scanner;
 import javax.swing.tree.ExpandVetoException;
 
 public class loadFile {
-	private Scanner x;
 	private Deck deck;
-	private CheckWinnner checkWin;
+	private checkWinner checkWin;
+	private int playerTotal;
+	private int dealerTotal;
+	private playerTurn pTurn;
+	private dealerTurn dTurn;
+	private Scanner x;
 	public loadFile()
 	{
 		deck = new Deck();
 	}
 	public void openFile()
 	{
+		@SuppressWarnings("resource")
 		Scanner console = new Scanner(System.in);
 		System.out.println("type file name you want to load");
 		String file = console.next();
@@ -31,7 +36,7 @@ public class loadFile {
 	public void readFile()
 	{
 		while(x.hasNext()){
-            System.out.print(x.nextLine()+"\n");
+            System.out.print(x.nextLine()+"");
     }
 	}
 	
@@ -44,37 +49,23 @@ public class loadFile {
 	{
 		openFile();
 		
-		int playerTotal = 0;
-		int dealerTotal = 0;
-		int dealerShowing = 0;
-			
+		playerTotal = 0;
+		dealerTotal = 0;
+		deck = new Deck();
+		
 		ArrayList<Card> playersCards = new ArrayList<Card>(); 
 		ArrayList<Card> dealersCards = new ArrayList<Card>();
 			
-		System.out.print("Player draw card: ");
-		playerTotal += deck.drawSpeCard(playersCards, x.nextLine()).getCardValue();
-		playersCards.get(playersCards.size()-1).printCard();
-		System.out.println("\n player has: " + playerTotal);
-		
-		System.out.print("Player draw card: ");
-		playerTotal += deck.drawSpeCard(playersCards, x.nextLine()).getCardValue();
-		playersCards.get(playersCards.size()-1).printCard();
-		System.out.println("\n player has: " + playerTotal);
-			
-		System.out.print("Dealer draw card: ");
-		dealerTotal += deck.drawSpeCard(dealersCards, x.nextLine()).getCardValue();
-		dealersCards.get(dealersCards.size()-1).printCard();
-		System.out.println("\n dealer has: " + dealerTotal);	
-		
-		System.out.print("Dealer draw card: ");
-		dealerTotal += deck.drawSpeCard(dealersCards, x.nextLine()).getCardValue();
-		dealersCards.get(dealersCards.size()-1).printCard();
-		System.out.println("\n dealer has: " + dealerTotal);	
+		pTurn = new playerTurn(playerTotal,playersCards,deck,x, null);
+		dTurn = new dealerTurn(dealerTotal,dealersCards,deck, 0, x);
+		pTurn.drawInitialCard4File();
+		dTurn.drawInitialCard4File();
 			
 		boolean playerTurn = false;
 		if(x.hasNextLine())
 			playerTurn = true;
 		
+		//player turn
 		while(playerTurn)
 		{
 			if(x.nextLine().equals("S"))
@@ -85,66 +76,24 @@ public class loadFile {
 			}
 			else
 			{
-				System.out.println("Player hit ");
-				System.out.print("Player draw card: ");
-				playerTotal += deck.drawSpeCard(playersCards, x.nextLine()).getCardValue();
-				playersCards.get(playersCards.size()-1).printCard();			
+				pTurn.player_turn4File();
 			}
-			for(int i = 0; i < playersCards.size(); i++)
+			if(pTurn.getPT() > 21)
 			{
-				if (playersCards.get(i).isAce() && playerTotal > 21) 
-				{
-					playerTotal -= 10;
-					//has ace, ace = 1;
-				}
-			}
-			System.out.println("\n player has: " + playerTotal);
-		}
-		
-		boolean dealerTurn = false;
-		if(x.hasNextLine())
-			dealerTurn = true;
-		
-		while (dealerTotal <=17 && dealerTurn)
-		{
-			if(dealerTotal <= 16)
-			{
-				System.out.println("Dealer has <17, hit");
-				System.out.print("Dealer draw card: ");
-				dealerTotal += deck.drawSpeCard(dealersCards, x.nextLine()).getCardValue();
-				dealersCards.get(dealersCards.size()-1).printCard();
-				System.out.println("\n dealer has: " + dealerTotal);	
-			}
-			else if(dealerTotal == 17)
-			{
-				for(int i = 0; i < dealersCards.size(); i++)
-				{
-					//if soft 17
-					if (dealersCards.get(i).isAce()) 
-					{
-						System.out.print("Dealer has 17, hit: ");
-						dealerTotal += deck.drawSpeCard(dealersCards, x.nextLine()).getCardValue();
-						dealersCards.get(dealersCards.size()-1).printCard();
-						System.out.println("\n dealer has: " + dealerTotal);	
-					}
-				}	
-			}
-			else
-			{
-				System.out.println("Dealer stand");
 				break;
 			}
-			for(int i = 0; i < dealersCards.size(); i++)
-			{
-				if (dealersCards.get(i).isAce() && dealerTotal >21) 
-				{
-					dealerTotal -= 10;
-				}
-			}
-				
 		}
-		checkWin = new CheckWinnner();
-		checkWin.checkWin(playerTotal,dealerTotal);
+		
+		//dealer turn
+		boolean dealerTurn = false;
+		if(x.hasNextLine() && pTurn.getPT()<=21)
+			dealerTurn = true;
+		
+		if(dealerTurn)
+			dTurn.dealer_turn4File();
+		
+		checkWin = new checkWinner();
+		checkWin.checkWin(pTurn.getPT(),dTurn.getPT());
 
 		System.out.println();
 		System.out.println("Player has: ");

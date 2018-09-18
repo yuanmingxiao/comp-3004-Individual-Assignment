@@ -15,20 +15,28 @@ public class DeckTest {
 	}
 
 	@Test
-	public void testInitDeck() {
+	public void test_InitDeck() {
 		int numberCardOnDeck = 52;
 		assertEquals(numberCardOnDeck, deckTest.initDeck().size());
 	}
 
 	@Test
-	public void testDrawCard() {
+	public void test_shuffle()
+	{
+		Card orgCard = deckTest.getCard(0);
+		deckTest.shuffle();
+		assertNotEquals(orgCard,deckTest.getCard(0));
+	}
+	
+	@Test
+	public void test_DrawCard() {
 		deckTest.initDeck();
 		ArrayList<Card> cardList = new ArrayList<Card>();
 		assertNotNull(deckTest.drawCard(cardList));
 	}
 
 	@Test
-	public void testDrawSpeCard() {
+	public void test_DrawSpeCard() {
 		deckTest.initDeck();
 		ArrayList<Card> cardList = new ArrayList<Card>();
 		String card = "HA";

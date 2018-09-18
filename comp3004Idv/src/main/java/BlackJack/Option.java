@@ -1,5 +1,6 @@
 package BlackJack;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Option {
@@ -15,10 +16,11 @@ public class Option {
 		Hit,Stand;
 	}
 	
-	public void opt(int total, Scanner console)
+	public void opt(ArrayList<Card> cardList, int total, Scanner console)
 	{
 		System.out.println();
-		System.out.println("You have: " + total); 
+		System.out.println("Players have: " + total); 
+		Deck.showHandCards(cardList);
 		System.out.println("Do you want to hit(h)/stand(s)?");
 		String answer = console.next();
 		if(answer.indexOf("h",0) == 0 || answer.indexOf("H",0) == 0)
@@ -32,7 +34,7 @@ public class Option {
 		else 
 		{
 			System.out.println();
-			type = Options.Stand;
+			opt(cardList,total,console);
 		}
 	}
 	

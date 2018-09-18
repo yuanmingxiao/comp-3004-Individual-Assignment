@@ -15,7 +15,7 @@ public class CardTest {
 	}
 
 	@Test
-	public void testdetermineCardValue() {
+	public void test_determineCardValue() {
 		int value = 10;
 		String name = "10";
 		assertEquals(value, cardTest.determineCardValue(name));
@@ -40,7 +40,7 @@ public class CardTest {
 	}
 	
 	@Test
-	public void testgetCardValue()
+	public void test_getCardValue()
 	{
 		int value = 5;
 		String name = "5";
@@ -65,7 +65,7 @@ public class CardTest {
 	}
 	
 	@Test
-	public void testisAce()
+	public void test_isAce()
 	{
 		String name = "Ace";
 		String suite = "Hearts";
@@ -79,12 +79,20 @@ public class CardTest {
 	}
 	
 	@Test
-	public void testgetSuites()
+	public void test_getSuites()
 	{
 		String name = "Ace";
 		String suite = "Hearts";
 		cardTest =new Card(name,suite);
 		assertEquals(suite, cardTest.getSuites());
+	}
 	
+	@Test
+	public void test_getName()
+	{
+		String name = "Ace";
+		String suite = "Hearts";
+		cardTest =new Card(name,suite);
+		assertEquals(name,cardTest.getName());
 	}
 }

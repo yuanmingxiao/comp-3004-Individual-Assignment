@@ -64,6 +64,14 @@ public class Deck {
 		Card card = null;
 		String s = null;
 		String c = null;
+		
+		if(a.length()<2)
+		{
+			System.out.println();
+			System.out.println("-----missing input-----");
+			System.exit(0);
+		}
+		
 		if(a.charAt(0) == 'H')
 			s = suites[0];
 		else if(a.charAt(0) == 'S')
@@ -72,6 +80,11 @@ public class Deck {
 			s = suites[2];
 		else if (a.charAt(0) == 'D')
 			s = suites[3];
+		else
+		{
+			System.out.println("Incorrect suit: -- " + a.charAt(0));
+			System.exit(0);
+		}
 		
 		if(a.charAt(1) == 'A')
 			c = cards[0];
@@ -99,15 +112,28 @@ public class Deck {
 			c = cards[11];
 		else if(a.charAt(1) == 'K')
 			c = cards[12];
-	
+		else
+		{
+			System.out.println("Incorrect rank: -- " + a.charAt(1));
+			System.exit(0);
+		}
+		
+		boolean hasCardinDeck = false;
 	 for(int i=0; i<deck.size();i++)
 	 {
 		 if(deck.get(i).getName().equals(c) && deck.get(i).getSuites().equals(s))
 		 {
 			 card = deck.get(i);
 			 deck.remove(i);
+			 hasCardinDeck = true;
 			 break;
 		 }
+	 }
+	 
+	 if(!hasCardinDeck)
+	 {
+		System.out.println("card already played");
+		System.exit(0);
 	 }
 	 cardList.add(card);
 		return card;
@@ -118,6 +144,18 @@ public class Deck {
 		deck.get(i).printCard();
 	}
 	
+	public Card getCard(int i)
+	{
+		return deck.get(i);
+	}
+	
+	public static void showHandCards(ArrayList<Card> cardList)
+	{
+		for(Card card : cardList)
+		{
+			System.out.println("you have: " + card.toString() + " | value: " + card.getCardValue());
+		}
+	}
 	/*public static void main(String[] arg)
 	{
 		initDeck();
