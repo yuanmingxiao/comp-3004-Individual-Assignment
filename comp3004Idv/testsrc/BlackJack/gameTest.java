@@ -12,9 +12,9 @@ public class gameTest {
 	}
 
 	@Test
-	public void test() {
+	public void test_start() {
 		//game gameTest = new game();
-		game.main(null);
+		game.gameStart();
 	}
 
 }

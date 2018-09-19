@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ConsoleTest {
-	private Deck deckTest;
 	private Console consoleTest;
 	@Before
 	public void setUp() throws Exception {
@@ -17,5 +16,6 @@ public class ConsoleTest {
 	public void testc_cPro() {
 		consoleTest.cpro();
 	}
-
+	
+	
 }

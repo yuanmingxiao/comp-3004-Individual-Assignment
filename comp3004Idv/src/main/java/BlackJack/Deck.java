@@ -139,9 +139,9 @@ public class Deck {
 		return card;
 	}
 	
-	public void getDeck(int i)
+	public ArrayList<Card> getDeck()
 	{
-		deck.get(i).printCard();
+		return deck;
 	}
 	
 	public Card getCard(int i)

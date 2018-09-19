@@ -89,7 +89,9 @@ public class playerTurn {
 			}
 			else
 			{
-				
+				System.out.println();
+				System.out.println("-----incorrect input-----");
+				System.exit(0);
 			}
 			//countAce = 0;
 			for(int i = 0; i < playersCards.size(); i++)

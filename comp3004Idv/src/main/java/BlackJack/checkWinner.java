@@ -16,7 +16,7 @@ public class checkWinner {
 		else if(playerTotal > 21)
 		{
 			System.out.println("You have: " + playerTotal);
-			System.out.println("Dealer has: " + dealerTotal);
+			//System.out.println("Dealer has: " + dealerTotal);
 			System.out.println("You busts!");
 		}
 		else if(playerTotal > dealerTotal)

@@ -62,12 +62,15 @@ public class Console {
 				System.out.println(card.toString() + " | value: " + card.getCardValue());
 			}
 			System.out.println("--------------------");
-			System.out.println("Do you wang to play again? y/n");
+			System.out.println("Do you want to play again? y/n");
 			String replay = console.next();
 			if(replay.equals("y"))
 				play = true;
 			else
+			{
 				play = false;
+				System.exit(0);
+			}	
 		}
 	}
 }

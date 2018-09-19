@@ -34,9 +34,20 @@ public class dealerTurnTest {
 	
 	@Test
 	public void test_initial4File() throws FileNotFoundException {
-		console = new Scanner(new File("src/main/java/BlackJack/file1.txt"));
+		console = new Scanner(new File("src/main/java/BlackJack/20-25.txt"));
 		dTest = new dealerTurn(dealerTotal,dealersCards,deck, 0, console);
 		dTest.drawInitialCard4File();
 	}
 	
+	@Test
+	public void testc_soft17()
+	{
+	    dealerTotal = 17;
+	    String suite= Deck.suites[0];
+		String name = Deck.cards[0];
+		Card card = new Card(name,suite);
+		dealersCards.add(card);
+	    dTest = new dealerTurn(dealerTotal, dealersCards, deck, dealerTotal, console);
+	    dTest.dealer_turn();
+	}
 }
